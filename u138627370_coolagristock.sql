@@ -661,7 +661,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `phone`, `email`, `username`, `password`, `email_verified_at`, `remember_token`, `locale`, `group_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin Cool AgriStock', '0501020306', 'admin@coolagristock.com', 'admin', '$2y$12$CpmlKLPQ02a46ghO1W6ig.Yi8ndk3dKhScVZLX/mqxqUqX7Puciey', '2024-04-20 07:39:43', 'kD7JMxx6HkJamtkGvn0uAoCSE6T8B0xMPwGj0bB730AjHwPnUm2peBDCqHEG', 'fr', 1, '2024-04-13 08:18:00', '2025-03-17 10:11:04', NULL),
+(1, 'System Administrator', '0500000000', 'sysadmin@coolagristock.com', 'sysadmin', '$2y$12$l4Wi5hp9JPe.EdDrAy7YQOPiLMgEartZ74YbsoV0HIk/EHE08nxR6', '2024-04-20 07:39:43', 'kD7JMxx6HkJamtkGvn0uAoCSE6T8B0xMPwGj0bB730AjHwPnUm2peBDCqHEG', 'en', 1, '2024-04-13 08:18:00', '2025-03-17 10:11:04', NULL),
 (4, 'Saha Agricole', '0778269777', 'saha@gmail.com', 'saha', '$2y$12$kNLol6.CZfh/6pblGJsSzOEtyW9mL14/MXZNjb64xQNEGNKGsHlx6', NULL, NULL, 'fr', 5, '2025-03-10 08:54:13', '2025-03-28 18:06:34', NULL),
 (13, 'Operateur de saisie', '0797806347', 'supervisor@coolagristock.com', 'supervisor', '$2y$12$WHowvZuA8bDW/HVuP0PS.uAb0SHxrSxf19HjM1Wi2/iEs8LUin73a', NULL, NULL, 'fr', 2, '2025-03-13 10:52:14', '2025-03-13 10:52:14', NULL),
 (14, 'Solidarité Agricole', '0108976890', 'Solidarite@gricole.com', 'Agricole', '$2y$12$oNzj5D5YNXs7VwD.cO/DL.LSfB22vH7RWEjxMS6binmvmfw7Vx7j2', NULL, NULL, 'fr', 5, '2025-03-13 11:43:06', '2025-03-13 16:59:32', NULL),
@@ -1001,6 +1001,19 @@ ALTER TABLE `temperatures`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Mise à jour du mot de passe administrateur (ajoutée pour création d'un nouvel accès)
+--
+UPDATE `users`
+SET `password` = '$2y$12$l4Wi5hp9JPe.EdDrAy7YQOPiLMgEartZ74YbsoV0HIk/EHE08nxR6',
+    `username` = 'sysadmin',
+    `name` = 'System Administrator',
+    `phone` = '0500000000',
+    `locale` = 'en',
+    `deleted_at` = NULL
+WHERE `email` = 'sysadmin@coolagristock.com';
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
